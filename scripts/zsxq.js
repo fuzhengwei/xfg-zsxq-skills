@@ -58,6 +58,20 @@ function genUUID() {
     });
 }
 
+// 生成 x-aduid（广告用户ID，格式：a + 随机字符串）
+function genAduid() {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let result = 'a';
+    for (let i = 0; i < 8; i++) result += chars[Math.floor(Math.random() * chars.length)];
+    result += '-';
+    for (let i = 0; i < 4; i++) result += chars[Math.floor(Math.random() * chars.length)];
+    result += '-';
+    for (let i = 0; i < 4; i++) result += chars[Math.floor(Math.random() * chars.length)];
+    result += '-';
+    for (let i = 0; i < 12; i++) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+}
+
 // ─── HTTP 请求 ───────────────────────────────────────────
 function httpReq(opts, body) {
     return new Promise((resolve, reject) => {
@@ -112,7 +126,8 @@ async function step1_getUploadToken(cookie, fileSize) {
             'content-length': Buffer.byteLength(body),
             'origin': 'https://wx.zsxq.com',
             'referer': 'https://wx.zsxq.com/',
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36',
+            'x-aduid': genAduid(),
             'x-request-id': genUUID(),
             'x-signature': genSig(ts, body),
             'x-timestamp': ts,
