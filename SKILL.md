@@ -32,11 +32,11 @@ metadata:
 
 ### 1. 配置 Cookie
 
+执行技能目录下的脚本：
 ```bash
-cd /Users/fuzhengwei/Documents/project/xfg-zsxq-skills/scripts
 
 # 添加星球配置
-node zsxq.js config add \
+node {skills}/scripts/zsxq.js config add \
   --url "https://wx.zsxq.com/group/星球ID" \
   --cookie "你的完整Cookie"
 ```
@@ -136,6 +136,19 @@ node zsxq-auto-check.js
 # 在 OpenClaw 中说"设置定时任务"即可自动创建
 ```
 
+# 📁 References 路由表
+
+当需要详细参考信息时，按需加载以下文件：
+
+| 文件 | 用途 | 何时读取 |
+|------|------|----------|
+| [references/api.md](references/api.md) | API 接口文档 | 发帖/浏览/上传图片时 |
+| [references/usage.md](references/usage.md) | 详细使用指南 | 需要批量发帖/Git集成时 |
+| [references/faq.md](references/faq.md) | 常见问题解答 | 遇到错误时 |
+| [references/signature.md](references/signature.md) | 签名生成方法 | 需要手动生成签名时 |
+| [references/token-config.md](references/token-config.md) | Token 配置说明 | 配置 Cookie/Token 时 |
+| [references/puppeteer.md](references/puppeteer.md) | 浏览器自动化 | 使用自动回复功能时 |
+
 ---
 
 # 📁 API 接口状态
@@ -188,12 +201,21 @@ zsxq_access_token=xxx; sensorsdata2015jssdkcross=xxx; sajssdk_2015_cross_new_use
 xfg-zsxq-skills/
 ├── SKILL.md                 # 技能文档
 ├── README.md                # 说明文档
-└── scripts/
-    ├── zsxq.js              # 主脚本（配置/发帖/浏览）
-    ├── zsxq-auto-check.js   # 自动检查通知
-    ├── zsxq-auto-reply.js   # 自动回复（浏览器自动化）
-    └── zsxq-cron-setup.js   # 定时任务设置
+├── scripts/                 # 可执行脚本
+│   ├── zsxq.js              # 主脚本（配置/发帖/浏览）
+│   ├── zsxq-auto-check.js   # 自动检查通知
+│   ├── zsxq-auto-reply.js   # 自动回复（浏览器自动化）
+│   └── zsxq-cron-setup.js   # 定时任务设置
+└── references/              # 参考文档（按需加载）
+    ├── api.md               # API 接口文档
+    ├── usage.md             # 详细使用指南
+    ├── faq.md               # 常见问题
+    ├── signature.md         # 签名生成
+    ├── token-config.md      # Token 配置
+    └── puppeteer.md         # 浏览器自动化
 ```
+
+**注意**：references 目录下的文件不会自动加载到上下文，仅在需要时由 AI 自行读取。
 
 ---
 
@@ -201,4 +223,4 @@ xfg-zsxq-skills/
 
 - 知识星球网页版：https://wx.zsxq.com
 - 配置文件：`~/.xfg-zsxq/groups.json`
-- 脚本目录：`/Users/fuzhengwei/Documents/project/xfg-zsxq-skills/scripts`
+- 脚本目录：`xfg-zsxq-skills/scripts`
