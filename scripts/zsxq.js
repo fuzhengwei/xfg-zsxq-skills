@@ -319,6 +319,24 @@ async function cmdPost(args) {
     } else {
         console.error(`\n❌ 发帖失败 (code: ${r.code})`);
         console.error('响应:', JSON.stringify(r).slice(0, 300));
+        
+        // 提供具体的错误诊断
+        if (r.code === 1004) {
+            console.error(`\n💡 可能原因：`);
+            console.error(`   1. Cookie 已过期，需要重新获取`);
+            console.error(`   2. zsxq_access_token 无效或为空`);
+            console.error(`\n📋 解决方法：`);
+            console.error(`   1. 登录 https://wx.zsxq.com`);
+            console.error(`   2. 按 F12 打开开发者工具 → Network`);
+            console.error(`   3. 点击任意请求，复制完整的 Cookie 头值`);
+            console.error(`   4. 运行: node zsxq.js config add --url "..." --cookie "新Cookie"`);
+        }
+        if (r.code === 1059) {
+            console.error(`\n💡 可能原因：`);
+            console.error(`   1. Cookie 权限不足`);
+            console.error(`   2. 该账号被限制发帖`);
+            console.error(`   3. Cookie 中的 token 已过期`);
+        }
         process.exit(1);
     }
 }
