@@ -47,12 +47,17 @@ node {skills}/scripts/zsxq.js config add \
 3. 点击任意请求（如 `api.zsxq.com`）
 4. 复制 **Request Headers** 中的完整 `Cookie` 头值
 
-### 2. 查看配置
+### 2. 查看本地已保存配置信息
 
 ```bash
+# 执行命令返回本地保存的知识星球ID等信息
 node zsxq.js config list
 ```
 
+或者读取用户主目录的下的文件获取已保存的信息
+```bash
+~/.xfg-zsxq/groups.json
+```
 ---
 
 ## 📝 发帖
@@ -114,6 +119,20 @@ curl "https://api.zsxq.com/v2/groups/{group_id}/topics?count=10" \
 
 ---
 
+## 📝 发布文章
+
+```bash
+# 发布到草稿箱（默认）
+node zsxq-auto-post-article.js --cookie "xxx" --title "文章标题" --content "<p>文章内容</p>"
+
+# 更新已有草稿（指定article_id）
+node zsxq-auto-post-article.js --cookie "xxx" --title "标题" --content "<p>内容</p>" --article "文章ID"
+
+# 若需直接诶发布为文章，建议先保存为草稿后再发布
+node zsxq-auto-post-article.js --cookie "xxx" --title "文章标题" --content "<p>文章内容</p>" --publish true --article "文章ID"
+
+```
+
 ## 🔔 检查通知
 
 ```bash
@@ -156,6 +175,7 @@ node zsxq-auto-check.js
 | 功能 | 接口 | 方法 | 状态 |
 |------|------|------|------|
 | 发帖 | `/v2/groups/{group_id}/topics` | POST | ⚠️ 需有效 Cookie |
+| 发布草稿文章 | `/v2/articles/drafts` | POST | ⚠️ 需有效 Cookie |
 | 浏览帖子 | `/v2/groups/{group_id}/topics` | GET | ✅ 正常 |
 | 回复帖子 | `/v2/topics/{topic_id}/comments` | POST | ⚠️ 需浏览器自动化 |
 | 获取动态 | `/v2/dynamics?scope=all` | GET | ✅ 正常 |
@@ -205,6 +225,8 @@ xfg-zsxq-skills/
 │   ├── zsxq.js              # 主脚本（配置/发帖/浏览）
 │   ├── zsxq-auto-check.js   # 自动检查通知
 │   ├── zsxq-auto-reply.js   # 自动回复（浏览器自动化）
+│   ├── zsxq-auto-post.js    # 发帖脚本
+│   ├── zsxq-auto-post-article.js  # 发布文章
 │   └── zsxq-cron-setup.js   # 定时任务设置
 └── references/              # 参考文档（按需加载）
     ├── api.md               # API 接口文档
